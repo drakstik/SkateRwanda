@@ -1,0 +1,32 @@
+{
+  "name": "SkateRwanda website",
+
+  // Node 22 LTS (Tailwind 4 and Vite need a recent Node)
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+
+  "features": {
+    // Hugo extended edition, needed for image processing in TailBliss
+    "ghcr.io/devcontainers/features/hugo:1": {
+      "version": "latest",
+      "extended": true
+    }
+  },
+
+  // Hugo's dev server
+  "forwardPorts": [1313],
+  "portsAttributes": {
+    "1313": { "label": "Hugo server" }
+  },
+
+  // Don't pass your SSH agent into the container
+  "remoteEnv": {
+    "SSH_AUTH_SOCK": ""
+  },
+
+  // Install pnpm, then install the theme's dependencies.
+  // pnpm doesn't run dependency install scripts by default.
+  "postCreateCommand": "npm install -g pnpm && cd themes/tailbliss && pnpm install",
+
+  // Run as the non-root user that the image provides
+  "remoteUser": "node"
+}
